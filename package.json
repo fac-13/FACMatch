@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "parcel public/index.html",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build": "parcel build index.html"
+    "build": "parcel build public/index.html"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +25,8 @@
     "eslint-plugin-react": "^7.8.2",
     "jest": "^22.4.4",
     "parcel-bundler": "^1.8.1",
-    "preset": "^1.0.0"
+    "preset": "^1.0.0",
+    "react-testing-library": "^3.1.3"
   },
   "dependencies": {
     "react": "^16.3.2",
