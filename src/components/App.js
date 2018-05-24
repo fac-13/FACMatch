@@ -2,7 +2,6 @@ import React from 'react';
 import StartPause from './StartPause/StartPause';
 import Game from './Game/Game';
 
-import doubleArray from '../utils/doubleArray';
 import shuffleArray from '../utils/shuffleArray';
 import getUserData from '../utils/getUserData';
 
@@ -34,13 +33,18 @@ export default class App extends React.Component {
     this.setState({ running: true, fac: [] });
     usernames.forEach(username => {
       getUserData(`https://api.github.com/users/${username}`).then(res => {
-        const member = {
+        const member1 = {
+          name: res.login,
+          profileUrl: res.html_url,
+          imgUrl: res.avatar_url
+        };
+        const member2 = {
           name: res.login,
           profileUrl: res.html_url,
           imgUrl: res.avatar_url
         };
         this.setState({
-          fac: [...this.state.fac, member, member]
+          fac: [...this.state.fac, member1, member2]
         });
         this.setState({
           fac: shuffleArray(this.state.fac)

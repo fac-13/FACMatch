@@ -8,8 +8,8 @@ article {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 24vw;
-  width: 24vw;
+  height: 10vw;
+  width: 10vw;
   border: 2px solid black;
   box-sizing: border-box;
   margin: 1px;
