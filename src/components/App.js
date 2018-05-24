@@ -31,20 +31,19 @@ export default class App extends React.Component {
       'haydnba',
       'helenzhou6'
     ];
-    usernames = shuffleArray(doubleArray(usernames));
-    this.setState({ fac: [] });
+    this.setState({ running: true, fac: [] });
     usernames.forEach(username => {
       getUserData(`https://api.github.com/users/${username}`).then(res => {
+        const member = {
+          name: res.login,
+          profileUrl: res.html_url,
+          imgUrl: res.avatar_url
+        };
         this.setState({
-          running: true,
-          fac: [
-            ...this.state.fac,
-            {
-              name: res.login,
-              profileUrl: res.html_url,
-              imgUrl: res.avatar_url
-            }
-          ]
+          fac: [...this.state.fac, member, member]
+        });
+        this.setState({
+          fac: shuffleArray(this.state.fac)
         });
       });
     });

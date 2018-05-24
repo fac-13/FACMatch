@@ -5,9 +5,17 @@ section {
 }
 
 article {
-  height: 100px;
-  width: 24%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24vw;
+  width: 24vw;
   border: 2px solid black;
   box-sizing: border-box;
   margin: 1px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
 }
