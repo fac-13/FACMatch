@@ -2,9 +2,10 @@ import React from 'react';
 import StartPause from './StartPause/StartPause';
 import Game from './Game/Game';
 
-import doubleArray from '../utils/doubleArray';
 import shuffleArray from '../utils/shuffleArray';
 import getUserData from '../utils/getUserData';
+
+import './app.css';
 
 export default class App extends React.Component {
   state = {
@@ -31,52 +32,47 @@ export default class App extends React.Component {
       'haydnba',
       'helenzhou6'
     ];
-    usernames = shuffleArray(doubleArray(usernames));
-    this.setState({ fac: [] });
+    this.setState({ running: true, fac: [] });
     usernames.forEach(username => {
       getUserData(`https://api.github.com/users/${username}`).then(res => {
+        const member1 = {
+          name: res.login,
+          profileUrl: res.html_url,
+          imgUrl: res.avatar_url
+        };
+        const member2 = {
+          name: res.login,
+          profileUrl: res.html_url,
+          imgUrl: res.avatar_url
+        };
         this.setState({
-          running: true,
-          fac: [
-            ...this.state.fac,
-            {
-              name: res.login,
-              profileUrl: res.html_url,
-              imgUrl: res.avatar_url
-            }
-          ]
+          fac: shuffleArray([...this.state.fac, member1, member2])
         });
       });
     });
   };
 
-  startPause = () => {
+  pause = () => {
     this.setState({
-      running: !this.state.running
+      running: false
     });
   };
 
   render() {
+    const { running, fac } = this.state;
     return (
       <main>
         <header>
           <h1>FAC Match</h1>
-          <p>Instruction</p>
-          <StartPause onClick={this.start}>
-            {this.state.running ? 'Pause' : 'Start'}
-          </StartPause>
-          <Game />
-          <p>Running: {this.state.running ? 'True' : 'False'}</p>
-          <ul>
-            {this.state.fac.length !== 32 ? (
-              <p>...loading</p>
-            ) : (
-              this.state.fac.map((member, index) => (
-                <li key={index}>{member.name}</li>
-              ))
-            )}
-          </ul>
+          <p>Instructions</p>
+          {running ? <StartPause onClick={this.pause}>Pause</StartPause> : null}
         </header>
+        {!running ? (
+          <section>
+            <StartPause onClick={this.start}>Start</StartPause>
+          </section>
+        ) : null}
+        {fac.length === 32 ? <Game fac={this.state.fac} /> : null}
       </main>
     );
   }
