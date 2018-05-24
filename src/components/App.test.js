@@ -19,14 +19,14 @@ describe('test App', () => {
     const actual = container.querySelector('button').textContent;
     expect(actual).toBe('Start');
   });
-  test('displays pause button', () => {
+  test.skip('displays pause button', () => {
     const { container } = render(<App />);
     const button = container.querySelector('button');
     Simulate.click(button);
     expect(button.textContent).toBe('Pause');
   });
 
-  test('displays start button after 2 clicks', () => {
+  test.skip('displays start button after 2 clicks', () => {
     const { container } = render(<App />);
     const button = container.querySelector('button');
     Simulate.click(button);

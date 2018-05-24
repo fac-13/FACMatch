@@ -50,9 +50,9 @@ export default class App extends React.Component {
     });
   };
 
-  startPause = () => {
+  pause = () => {
     this.setState({
-      running: !this.state.running
+      running: false
     });
   };
 
@@ -65,18 +65,8 @@ export default class App extends React.Component {
           <StartPause onClick={this.start}>
             {this.state.running ? 'Pause' : 'Start'}
           </StartPause>
-          <Game />
-          <p>Running: {this.state.running ? 'True' : 'False'}</p>
-          <ul>
-            {this.state.fac.length !== 32 ? (
-              <p>...loading</p>
-            ) : (
-              this.state.fac.map((member, index) => (
-                <li key={index}>{member.name}</li>
-              ))
-            )}
-          </ul>
         </header>
+        <Game fac={this.state.fac} />
       </main>
     );
   }

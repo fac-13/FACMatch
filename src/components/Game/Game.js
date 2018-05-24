@@ -1,5 +1,13 @@
 import React from 'react';
 
-export default () => {
-  return <section>hello</section>;
+export default ({ fac }) => {
+  return (
+    <section className="game">
+      {fac.length !== 32 ? (
+        <p>...loading</p>
+      ) : (
+        fac.map((member, index) => <article key={index}>{member.name}</article>)
+      )}
+    </section>
+  );
 };
