@@ -66,7 +66,11 @@ export default class App extends React.Component {
             {this.state.running ? 'Pause' : 'Start'}
           </StartPause>
         </header>
-        <Game fac={this.state.fac} />
+        {this.state.fac.length !== 32 ? (
+          <p>...loading</p>
+        ) : (
+          <Game fac={this.state.fac} />
+        )}
       </main>
     );
   }

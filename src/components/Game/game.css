@@ -1,0 +1,13 @@
+section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+article {
+  height: 100px;
+  width: 24%;
+  border: 2px solid black;
+  box-sizing: border-box;
+  margin: 1px;
+}
