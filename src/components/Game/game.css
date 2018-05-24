@@ -1,7 +1,8 @@
-section {
+.game {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  height: 80%;
 }
 
 article {

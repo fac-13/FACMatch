@@ -1,0 +1,20 @@
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  background-color: aquamarine;
+  font-family: 'Courier New', Courier, monospace;
+  height: 100vh;
+  width: 100vw;
+}
+
+header {
+  height: 20%;
+  width: 100%;
+}
+
+section {
+  height: 80%;
+}

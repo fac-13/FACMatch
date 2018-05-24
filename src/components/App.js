@@ -5,6 +5,8 @@ import Game from './Game/Game';
 import shuffleArray from '../utils/shuffleArray';
 import getUserData from '../utils/getUserData';
 
+import './app.css';
+
 export default class App extends React.Component {
   state = {
     running: false,
@@ -44,10 +46,7 @@ export default class App extends React.Component {
           imgUrl: res.avatar_url
         };
         this.setState({
-          fac: [...this.state.fac, member1, member2]
-        });
-        this.setState({
-          fac: shuffleArray(this.state.fac)
+          fac: shuffleArray([...this.state.fac, member1, member2])
         });
       });
     });
@@ -60,20 +59,20 @@ export default class App extends React.Component {
   };
 
   render() {
+    const { running, fac } = this.state;
     return (
       <main>
         <header>
           <h1>FAC Match</h1>
-          <p>Instruction</p>
-          <StartPause onClick={this.start}>
-            {this.state.running ? 'Pause' : 'Start'}
-          </StartPause>
+          <p>Instructions</p>
+          {running ? <StartPause onClick={this.pause}>Pause</StartPause> : null}
         </header>
-        {this.state.fac.length !== 32 ? (
-          <p>...loading</p>
-        ) : (
-          <Game fac={this.state.fac} />
-        )}
+        {!running ? (
+          <section>
+            <StartPause onClick={this.start}>Start</StartPause>
+          </section>
+        ) : null}
+        {fac.length === 32 ? <Game fac={this.state.fac} /> : null}
       </main>
     );
   }
