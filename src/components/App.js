@@ -2,6 +2,8 @@ import React from 'react';
 import StartPause from './StartPause/StartPause';
 import Game from './Game/Game';
 
+import doubleArray from '../utils/doubleArray';
+import shuffleArray from '../utils/shuffleArray';
 import getUserData from '../utils/getUserData';
 
 export default class App extends React.Component {
@@ -11,7 +13,7 @@ export default class App extends React.Component {
   };
 
   start = () => {
-    const usernames = [
+    let usernames = [
       'i2xzy',
       'jenath',
       'isnotafunction',
@@ -29,24 +31,23 @@ export default class App extends React.Component {
       'haydnba',
       'helenzhou6'
     ];
-    const doubleUsernames = usernames
-      .reduce(
-        (res, current, index, array) => res.concat([current, current]),
-        []
-      )
-      .sort((a, b) => 0.5 - Math.random());
-    const fac = [];
-    doubleUsernames.forEach(username => {
+    usernames = shuffleArray(doubleArray(usernames));
+    this.setState({ fac: [] });
+    usernames.forEach(username => {
       getUserData(`https://api.github.com/users/${username}`).then(res => {
-        fac.push({
-          name: res.login,
-          imgUrl: res.avatar_url,
-          url: res.url
+        this.setState({
+          running: true,
+          fac: [
+            ...this.state.fac,
+            {
+              name: res.login,
+              profileUrl: res.html_url,
+              imgUrl: res.avatar_url
+            }
+          ]
         });
       });
     });
-    console.log(fac);
-    this.setState({ fac });
   };
 
   startPause = () => {
@@ -65,6 +66,16 @@ export default class App extends React.Component {
             {this.state.running ? 'Pause' : 'Start'}
           </StartPause>
           <Game />
+          <p>Running: {this.state.running ? 'True' : 'False'}</p>
+          <ul>
+            {this.state.fac.length !== 32 ? (
+              <p>...loading</p>
+            ) : (
+              this.state.fac.map((member, index) => (
+                <li key={index}>{member.name}</li>
+              ))
+            )}
+          </ul>
         </header>
       </main>
     );
