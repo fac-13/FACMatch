@@ -1,10 +1,10 @@
 import React from 'react';
-import StartPause from './StartPause';
+import Header from './Header';
 import { render } from 'react-testing-library';
 
-describe('Test StartPause', () => {
+describe('Test Header', () => {
   test('displays children', () => {
-    const { container } = render(<StartPause>children</StartPause>);
+    const { container } = render(<Header>children</Header>);
     const button = container.querySelector('button');
     expect(button.textContent).toBe('children');
   });
