@@ -1,11 +1,12 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
 import './header.css';
 
 const Header = ({ onClick }) => (
-  <header class="header">
-    <h1 class="header__title">FAC Match</h1>
-    <p class="header__instructions">
+  <header className="header">
+    <h1 className="header__title">FAC Match</h1>
+    <p className="header__instructions">
       The objective is to collect the most pairs of cards.<br />
       On each turn, a player turns over any two cards (one at a time) and keeps
       them if the cards match<br />
@@ -14,10 +15,14 @@ const Header = ({ onClick }) => (
       When a player turns over two cards that do not match, those cards are
       turned face down again.
     </p>
-    <button class="header__btn" onClick={onClick}>
+    <button className="header__btn" onClick={onClick}>
       New Game
     </button>
   </header>
 );
+
+Header.propTypes = {
+  onClick: propTypes.func
+};
 
 export default Header;

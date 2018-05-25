@@ -1,9 +1,9 @@
 import React from 'react';
-import './game';
+import propTypes from 'prop-types';
 
-import doubleArray from '../../utils/doubleArray';
+import './game.css';
 
-export default class Game extends React.Component {
+class Game extends React.Component {
   state = {};
 
   componentDidMount() {
@@ -80,10 +80,10 @@ export default class Game extends React.Component {
             onClick={() => this.handleClick(Object.keys(state)[index])}
           >
             {state[member].flipped ? (
-              <img class="card__avatar" src={state[member].imgUrl} />
+              <img className="card__avatar" src={state[member].imgUrl} />
             ) : (
               <img
-                class="card__back"
+                className="card__back"
                 src="https://avatars2.githubusercontent.com/u/9970257?s=200&v=4"
               />
             )}
@@ -93,3 +93,9 @@ export default class Game extends React.Component {
     );
   }
 }
+
+Game.propTypes = {
+  fac: propTypes.arrayOf(propTypes.object)
+};
+
+export default Game;
