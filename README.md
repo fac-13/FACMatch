@@ -1,2 +1,2 @@
 # FACMatch
-React App
+Simple React game for React week
