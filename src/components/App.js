@@ -1,5 +1,5 @@
 import React from 'react';
-import StartPause from './StartPause/StartPause';
+import Header from './Header/Header';
 import Game from './Game/Game';
 
 import shuffleArray from '../utils/shuffleArray';
@@ -9,7 +9,6 @@ import './app.css';
 
 export default class App extends React.Component {
   state = {
-    running: false,
     fac: []
   };
 
@@ -52,27 +51,12 @@ export default class App extends React.Component {
     });
   };
 
-  pause = () => {
-    this.setState({
-      running: false
-    });
-  };
-
   render() {
-    const { running, fac } = this.state;
+    const { fac } = this.state;
     return (
       <main>
-        <header>
-          <h1>FAC Match</h1>
-          <p>Instructions</p>
-          {running ? <StartPause onClick={this.pause}>Pause</StartPause> : null}
-        </header>
-        {!running ? (
-          <section>
-            <StartPause onClick={this.start}>Start</StartPause>
-          </section>
-        ) : null}
-        {fac.length === 32 ? <Game fac={this.state.fac} /> : null}
+        <Header onClick={this.start} />
+        {fac.length === 32 ? <Game fac={fac} /> : null}
       </main>
     );
   }

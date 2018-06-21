@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background: rgb(163, 255, 224);
+  height: 30%;
+  width: 100%;
+}
+
+.header__title {
+  margin: 0;
+}
+
+.header__instructions {
+  margin: 0;
+}
+
+.header__btn {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: aliceblue;
+  border: none;
+  outline: none;
+  margin: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  height: 10%;
+}
+
+.header__btn:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.header__btn:active,
+.header__btn:target {
+  border: none;
+  outline: none;
+}

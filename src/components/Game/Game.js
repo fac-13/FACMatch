@@ -1,9 +1,9 @@
 import React from 'react';
-import './game';
+import propTypes from 'prop-types';
 
-import doubleArray from '../../utils/doubleArray';
+import './game.css';
 
-export default class Game extends React.Component {
+class Game extends React.Component {
   state = {};
 
   componentDidMount() {
@@ -30,17 +30,28 @@ export default class Game extends React.Component {
           [key]: Object.assign(prevState[key], { flipped: false })
         }));
       } else {
+        const flips = Object.keys(this.state).filter(
+          key => this.state[key].flipped && !this.state[key].matched
+        ).length;
+        if (flips > 1) {
+          Object.keys(this.state).forEach(key => {
+            if (!this.state[key].matched) {
+              this.setState(prevState => ({
+                [key]: Object.assign(prevState[key], { flipped: false })
+              }));
+            }
+          });
+        }
         this.setState(
           prevState => ({
             [key]: Object.assign(prevState[key], { flipped: true })
           }),
           () => {
-            name = key.substring(0, key.length - 1);
+            const { name } = card;
             if (
               this.state[name + '1'].flipped &&
               this.state[name + '2'].flipped
             ) {
-              console.log('cards match');
               this.setState(prevState => ({
                 [name + '1']: Object.assign(prevState[name + '1'], {
                   matched: true
@@ -51,25 +62,6 @@ export default class Game extends React.Component {
                   matched: true
                 })
               }));
-            } else {
-              const flips = Object.keys(this.state).filter(
-                key =>
-                  this.state[key].flipped && !this.state[key].matched
-                    ? true
-                    : false
-              );
-              console.log(flips.length);
-              if (flips.length > 1) {
-                setTimeout(() => {
-                  Object.keys(this.state).forEach(key => {
-                    if (!this.state[key].matched) {
-                      this.setState(prevState => ({
-                        [key]: Object.assign(prevState[key], { flipped: false })
-                      }));
-                    }
-                  });
-                }, 500);
-              }
             }
           }
         );
@@ -81,23 +73,29 @@ export default class Game extends React.Component {
     const { state } = this;
     return (
       <section className="game">
-        {state === {} ? (
-          <p>...loading</p>
-        ) : (
-          Object.keys(state).map((member, index) => (
-            <article
-              key={index}
-              onClick={() => this.handleClick(Object.keys(state)[index])}
-            >
-              {state[member].flipped ? (
-                <img src={state[member].imgUrl} />
-              ) : (
-                <h2>FAC</h2>
-              )}
-            </article>
-          ))
-        )}
+        {Object.keys(state).map((member, index) => (
+          <article
+            className="card"
+            key={index}
+            onClick={() => this.handleClick(Object.keys(state)[index])}
+          >
+            {state[member].flipped ? (
+              <img className="card__avatar" src={state[member].imgUrl} />
+            ) : (
+              <img
+                className="card__back"
+                src="https://avatars2.githubusercontent.com/u/9970257?s=200&v=4"
+              />
+            )}
+          </article>
+        ))}
       </section>
     );
   }
 }
+
+Game.propTypes = {
+  fac: propTypes.arrayOf(propTypes.object)
+};
+
+export default Game;
