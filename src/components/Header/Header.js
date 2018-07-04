@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import './header.css';
+// import './header.css';
 
 const Header = ({ onClick }) => (
   <header className="header">

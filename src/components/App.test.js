@@ -14,23 +14,16 @@ describe('test App', () => {
     const actual = container.querySelector('p');
     expect(actual).toBeTruthy();
   });
-  test('displays start/pause button', () => {
+  test('displays New Game button', () => {
     const { container } = render(<App />);
     const actual = container.querySelector('button').textContent;
-    expect(actual).toBe('Start');
+    expect(actual).toBe('New Game');
   });
-  test.skip('displays pause button', () => {
+  test('starts game', () => {
     const { container } = render(<App />);
-    const button = container.querySelector('button');
-    Simulate.click(button);
-    expect(button.textContent).toBe('Pause');
-  });
-
-  test.skip('displays start button after 2 clicks', () => {
-    const { container } = render(<App />);
-    const button = container.querySelector('button');
-    Simulate.click(button);
-    Simulate.click(button);
-    expect(button.textContent).toBe('Start');
+    const start = container.querySelector('button').textContent;
+    Simulate.click(start);
+    const actual = container.querySelector('img');
+    expect(actual).toBeTruthy;
   });
 });

@@ -1,5 +1,5 @@
 export default arr =>
   arr.reduce(
-    (res, current, index, array) => res.concat([current, current]),
+    (res, current) => res.concat([current, current]),
     []
   );

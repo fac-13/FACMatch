@@ -5,11 +5,12 @@ import Game from './Game/Game';
 import shuffleArray from '../utils/shuffleArray';
 import getUserData from '../utils/getUserData';
 
-import './app.css';
+// import './app.css';
 
 export default class App extends React.Component {
   state = {
-    fac: []
+    fac: [],
+    err: ''
   };
 
   start = () => {
@@ -17,7 +18,7 @@ export default class App extends React.Component {
       'i2xzy',
       'jenath',
       'isnotafunction',
-      'nik0lz',
+      'nic-oz',
       'jennah2121',
       'missKatiaPunter',
       'tdoran',
@@ -33,30 +34,37 @@ export default class App extends React.Component {
     ];
     this.setState({ running: true, fac: [] });
     usernames.forEach(username => {
-      getUserData(`https://api.github.com/users/${username}`).then(res => {
-        const member1 = {
-          name: res.login,
-          profileUrl: res.html_url,
-          imgUrl: res.avatar_url
-        };
-        const member2 = {
-          name: res.login,
-          profileUrl: res.html_url,
-          imgUrl: res.avatar_url
-        };
-        this.setState({
-          fac: shuffleArray([...this.state.fac, member1, member2])
+      getUserData(`https://api.github.com/users/${username}`)
+        .then(res => {
+          const member1 = {
+            name: `${res.login}1`,
+            profileUrl: res.html_url,
+            imgUrl: res.avatar_url
+          };
+          const member2 = {
+            name: `${res.login}2`,
+            profileUrl: res.html_url,
+            imgUrl: res.avatar_url
+          };
+          this.setState({
+            fac: shuffleArray([...this.state.fac, member1, member2])
+          });
+        })
+        .catch(err => {
+          this.setState({
+            err: err.message
+          });
         });
-      });
     });
   };
 
   render() {
-    const { fac } = this.state;
+    const { fac, err } = this.state;
     return (
       <main>
         <Header onClick={this.start} />
         {fac.length === 32 ? <Game fac={fac} /> : null}
+        {err.length >= 1 ? <span>{err}</span> : null}
       </main>
     );
   }

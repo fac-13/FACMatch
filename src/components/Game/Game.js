@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import './game.css';
+// import './game.css';
 
 class Game extends React.Component {
   state = {};
@@ -9,15 +9,9 @@ class Game extends React.Component {
   componentDidMount() {
     const newState = {};
     this.props.fac.forEach(member => {
-      if (newState[member.name + '1']) {
-        newState[member.name + '2'] = member;
-        newState[member.name + '2'].matched = false;
-        newState[member.name + '2'].flipped = false;
-      } else {
-        newState[member.name + '1'] = member;
-        newState[member.name + '1'].matched = false;
-        newState[member.name + '1'].flipped = false;
-      }
+      newState[member.name] = member;
+      newState[member.name].matched = false;
+      newState[member.name].flipped = false;
     });
     this.setState(newState);
   }
@@ -48,17 +42,15 @@ class Game extends React.Component {
           }),
           () => {
             const { name } = card;
-            if (
-              this.state[name + '1'].flipped &&
-              this.state[name + '2'].flipped
-            ) {
+            const name2 = name.substring(0, name.length - 1) + '2';
+            if (this.state[name].flipped && this.state[name2].flipped) {
               this.setState(prevState => ({
-                [name + '1']: Object.assign(prevState[name + '1'], {
+                [name]: Object.assign(prevState[name], {
                   matched: true
                 })
               }));
               this.setState(prevState => ({
-                [name + '2']: Object.assign(prevState[name + '2'], {
+                [name2]: Object.assign(prevState[name2], {
                   matched: true
                 })
               }));
