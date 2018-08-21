@@ -17,7 +17,7 @@ export default class App extends React.Component {
       'i2xzy',
       'jenath',
       'isnotafunction',
-      'nik0lz',
+      'nic-oz',
       'jennah2121',
       'missKatiaPunter',
       'tdoran',
